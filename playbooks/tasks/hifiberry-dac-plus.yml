@@ -1,0 +1,19 @@
+---
+- name: Update /boot/config.txt
+  become: yes
+  lineinfile:
+    path: /boot/config.txt
+    line: 'dtoverlay=hifiberry-dacplus'
+
+
+- name: Update /etc/modules
+  become: yes
+  lineinfile:
+    path: /etc/modules
+    line: '{{ item }}'
+  with_items:
+    - snd_soc_bcm2708
+    - bcm2708_dmaengine
+    - snd_soc_pcm512x
+    - snd_soc_hifiberry_dacplus
+

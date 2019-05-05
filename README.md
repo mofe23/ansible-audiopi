@@ -119,6 +119,15 @@ ansible-playbook -i <IP>, playbooks/postinstall-os.yml
 If you manually set a password for the local user created earlier, you need to call this playbook with the `--ask-sudo-pass` option to make ansible aware of the password needed to use sudo.
 
 
+### Configure HifiBerry DAC+
+
+To use a HifiBerry DAC+ shield with alsa run
+
+```sh
+ansible-playbook -i <IP>, playbooks/hifiberry.yml
+```
+
+
 ### shairport-sync
 
 To install the `shairport-sync` software (and the Airplay software stack) you can run the `shairport-sync.yml` playbook. We use the `hosts` inventory file that contains the hostnames of all airplay devices. These hostnames need to be resolvable and reachable over network to connect to these devices to run the playbook's tasks.

@@ -1,0 +1,22 @@
+- name: Setup HifiBerry Hardware
+  hosts: all
+  gather_facts: no
+
+  pre_tasks:
+    - name: Check for Ansible version > 2.4
+      assert:
+        that: "ansible_version.full is version_compare('2.4', '>=')"
+        msg: "This playbook requires Ansible version 2.4 or greater."
+
+  tasks:
+    - name: Configure HifiBerry DAC Plus
+      include_tasks: tasks/hifiberry-dac-plus.yml
+
+    - name: Reboot device
+      include_tasks: "tasks/reboot.yml"
+
+    - name: Configure ALSA to use HifiBerry DAC+
+      include_tasks: "tasks/hifiberry-alsa.yml"
+
+    - name: Reboot device
+      include_tasks: "tasks/reboot.yml"

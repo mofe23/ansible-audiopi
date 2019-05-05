@@ -1,0 +1,27 @@
+---
+- name: Remove /etc/asound.conf
+  become: yes
+  file:
+    path: "/etc/asound.conf"
+    state: absent
+
+- name: Get alsa device number
+  shell: aplay -l | grep snd_rpi_hifiberry_dacplus | cut -c6
+  register: alsadevice
+
+- debug: msg="{{ alsadevice }}"
+
+- set_fact:
+   alsadevicenumber={{ alsadevice.stdout }}
+
+- debug: msg="Using alsa device {{ alsadevicenumber }}"
+
+
+- name: Create alsa config file
+  become: yes
+  template:
+    src: asound.conf.j2
+    dest: /etc/asound.conf
+    owner: root
+    group: root
+    mode: 0644

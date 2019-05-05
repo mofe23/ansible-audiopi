@@ -50,7 +50,7 @@
     - name: Install some software packages to make your life easier ;-)
       become: true
       apt:
-        name: vim,git,rpi-update,tmux
+        name: vim,git,rpi-update,tmux,htop
 
     # Update the RPi's firmware using the rpi-update script
     - name: Update RaspberryPi firmware
